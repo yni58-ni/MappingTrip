@@ -30,10 +30,21 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
     connect(root, SIGNAL(onPointClicked(QVariant)), this, SLOT(pointClicked(QVariant)));
     connect(this, SIGNAL(doAddPoint(QVariant, QVariant, QVariant)), root, SLOT(doAddPoint(QVariant, QVariant, QVariant)));
 
-    connect(ui->Profile, SIGNAL(click()), this, SLOT());
+    ProfileEntity p = helper.getProfile(userId);
+    profile = new ProfileClicked(userId, this);
+    profile->setFrameStyle(QFrame::NoFrame | QFrame::Plain);
+    profile->setText("first line\nsecond line");
+    profile->setAlignment(Qt::AlignBottom | Qt::AlignRight);
+    //Here is how to change position:
+    QPixmap image(p.getFileName());
+    profile ->setPixmap(image);
+    profile ->setCursor(Qt::PointingHandCursor);
+    profile ->setScaledContents(true);
+    profile ->setGeometry(920,40,61,61);
+
+    connect(profile,&ProfileClicked::transmit,this,&MapDialog::update_profileImage);
 
 
-    addLocationInformationList();
     updatePointList();
 
 
@@ -117,10 +128,6 @@ void MapDialog::addLocationInformationList(){
 
 void MapDialog::mousePressEvent(QMouseEvent *event)
 {
-    ProfileDialog dialog(userId);
-    dialog.setWindowTitle("Profile");
-    dialog.setModal(true);
-    dialog.exec();
     emit clicked();
 }
 
@@ -132,5 +139,16 @@ void MapDialog::on_searchBotton_clicked() // search place on a map
 {
     QString placeName = ui ->searchBox ->text();
     searchPlace search(placeName);
+}
+
+
+void MapDialog::on_GetSetLocation_clicked()
+{
+    addLocationInformationList();
+}
+
+void MapDialog::update_profileImage(QString txt){
+    QPixmap pixmap(txt);
+    profile ->setPixmap(pixmap);
 }
 

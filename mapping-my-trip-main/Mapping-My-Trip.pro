@@ -12,6 +12,7 @@ HEADERS += \
     picturedialog.h \
     pictureentity.h \
     pointentity.h \
+    profileclicked.h \
     profiledialog.h \
     profileentity.h \
     registerdialog.h \
@@ -28,6 +29,7 @@ SOURCES += \
     picturedialog.cpp \
     pictureentity.cpp \
     pointentity.cpp \
+    profileclicked.cpp \
     profiledialog.cpp \
     profileentity.cpp \
     registerdialog.cpp \

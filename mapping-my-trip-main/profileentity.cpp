@@ -1,11 +1,17 @@
 #include "profileentity.h"
 
+/**
+ * @brief Profile dialog is the ui for users to view their profile and edit it
+ * @author Wenlong Zheng
+ * @return
+ */
+
 ProfileEntity::ProfileEntity()
 {
 
 }
 
-ProfileEntity::ProfileEntity(int userID, QString Name, int Gender, QString Tagline, QString fileName, QString Location, int createTime) :userID(userID),
+ProfileEntity::ProfileEntity(int userID, QString Name, int Gender, QString Tagline, QString fileName, QString Location, QString createTime) :userID(userID),
     Name(Name),
     Gender(Gender),
     Tagline(Tagline),
@@ -45,7 +51,7 @@ const QString &ProfileEntity::getFileName() const
     return fileName;
 }
 
-int ProfileEntity::getCreateTime() const
+QString ProfileEntity::getCreateTime() const
 {
     return createTime;
 }
@@ -73,4 +79,18 @@ void ProfileEntity::newTagline(QString tagline)
 void ProfileEntity::newfileName(QString filename)
 {
     fileName = filename;
+}
+
+QString ProfileEntity::getRealGender() const
+{
+    int g = Gender;
+    if (g == 0){
+        return "Unkown";
+    } else if (g == 1){
+        return "Male";
+    } else if (g == 2){
+        return "Female";
+    } else {
+        return "Other";
+    }
 }

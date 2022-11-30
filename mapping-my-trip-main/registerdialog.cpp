@@ -42,7 +42,7 @@ void RegisterDialog::on_acceptButton_clicked()
     int userId= helper.checkUser(ui->userNameLineEdit->text(), ui->passwordLineEdit->text());
     if(userId<0) {
         helper.addUser(ui->userNameLineEdit->text(), ui->passwordLineEdit->text());
-        helper.addProfile(helper.checkUser(ui->userNameLineEdit->text(), ui->passwordLineEdit->text()),ui->userNameLineEdit->text(),0,"","","");
+        helper.addProfile(helper.checkUser(ui->userNameLineEdit->text(), ui->passwordLineEdit->text()),ui->userNameLineEdit->text(),0,"",":/Profile_image.png","");
         helper.close();
         accept();
     } else {

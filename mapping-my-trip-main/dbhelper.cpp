@@ -166,7 +166,7 @@ int DBHelper::addProfile(int userID, QString Name, int Gender, QString Tagline, 
     query.bindValue(":Tagline", Tagline);
     query.bindValue(":fileName", fileName);
     query.bindValue(":Location", Location);
-    query.bindValue(":createTime", QDateTime::currentDateTime());
+    query.bindValue(":createTime", QDateTime::currentDateTime().toString());
     query.exec();
     return query.lastInsertId().toInt();
 }
@@ -187,7 +187,13 @@ int DBHelper::checkProfile(int userID)
 int DBHelper::updateProfile(int userID, QString Name, int Gender, QString Tagline, QString fileName, QString Location)
 {
     QSqlQuery query;
-    query.prepare("update t_profile set name='"+Name+"',gender='"+Gender+"',tagline='"+Tagline+"',file_name='"+fileName+"',location='"+Location+"' where user_id = '"+userID+"' ");
+    query.prepare("update t_profile set name=:Name,gender=:Gender,tagline=:Tagline,file_name=:fileName,location=:Location where user_id = :userID ");
+    query.bindValue(":userID", userID);
+    query.bindValue(":Name", Name);
+    query.bindValue(":Gender", Gender);
+    query.bindValue(":Tagline", Tagline);
+    query.bindValue(":fileName", fileName);
+    query.bindValue(":Location", Location);
     if(query.exec())
     {
         return userID;
@@ -211,9 +217,10 @@ ProfileEntity DBHelper::getProfile(int userID)
                           query.value(3).toString(),
                           query.value(4).toString(),
                           query.value(5).toString(),
-                          query.value(6).toInt());
+                          query.value(6).toString());
     return profile;
 }
+
 
 void DBHelper::initData()
 {

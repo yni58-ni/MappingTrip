@@ -16,7 +16,7 @@
 #include "picturedialog.h"
 #include "profileentity.h"
 #include "profiledialog.h"
-#include "clickablelabel.h"
+#include "profileclicked.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -69,8 +69,9 @@ private slots:
     void pointClicked(QVariant pointId);
     void addLocationInformationList();
     void mousePressEvent(QMouseEvent* event);
-
+    void on_GetSetLocation_clicked();
     void on_searchBotton_clicked();
+    void update_profileImage(QString txt);
 
 private:
     Ui::MapDialog *ui;
@@ -80,6 +81,7 @@ private:
      * @brief userId
      */
     int userId;
+    ProfileClicked *profile;
 };
 
 #endif // MAPDIALOG_H
