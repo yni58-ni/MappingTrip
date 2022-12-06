@@ -1,6 +1,5 @@
 #include "mapdialog.h"
 #include "ui_mapdialog.h"
-#include "searchPlace.h"
 #include <QString>
 
 
@@ -8,10 +7,14 @@ using namespace std;
 
 /**
  * @brief A window to display the map
- * @author Nicole Ni
+ * @author Nicole Ni  Ruiqing Sun
  * @param userId
  * @param parent
  */
+
+MapDialog::MapDialog(){
+
+}
 
 MapDialog::MapDialog( int userId, QWidget *parent) :
     QDialog(parent),
@@ -47,10 +50,10 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
 
     updatePointList();
 
+    P_name = "Toronto";
+
 
 }
-
-
 
 
 MapDialog::~MapDialog()
@@ -137,8 +140,14 @@ void MapDialog::mousePressEvent(QMouseEvent *event)
 
 void MapDialog::on_searchBotton_clicked() // search place on a map
 {
-    QString placeName = ui ->searchBox ->text();
-    searchPlace search(placeName);
+    P_name = ui ->searchBox ->text().toStdString();
+    cout<< "curren place name is :" << P_name;
+    emit p_nameChanged();
+
+}
+
+string MapDialog::p_name(){
+    return P_name;
 }
 
 

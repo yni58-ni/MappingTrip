@@ -31,8 +31,10 @@ class MapDialog;
 class MapDialog : public QDialog
 {
     Q_OBJECT
+    Q_PROPERTY(std::string p_name READ p_name  NOTIFY p_nameChanged)
 
 public:
+    MapDialog();
     explicit MapDialog(int userId, QWidget *parent = nullptr);
     ~MapDialog();
 
@@ -41,6 +43,7 @@ public:
      * @brief updatePointList
      */
     void updatePointList();
+    std::string p_name();
 
 signals:
     /**
@@ -52,6 +55,7 @@ signals:
      */
     void doAddPoint(QVariant id, QVariant latitude, QVariant longitude);
     void clicked();
+    void p_nameChanged();
 
 private slots:
     /**
@@ -82,6 +86,7 @@ private:
      */
     int userId;
     ProfileClicked *profile;
+    std:: string P_name;
 };
 
 #endif // MAPDIALOG_H
