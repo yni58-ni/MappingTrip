@@ -18,7 +18,6 @@ HEADERS += \
     registerdialog.h \
     searchPlace.h \
     userentity.h \
-    placeEntity.h \
     graph.h \
     pathDialog.h
 
@@ -38,7 +37,6 @@ SOURCES += \
     registerdialog.cpp \
     searchPlace.cpp \
     userentity.cpp \
-    placeEntity.cpp \
     graph.cpp \
     pathDialog.cpp
 
