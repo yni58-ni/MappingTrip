@@ -17,7 +17,10 @@ HEADERS += \
     profileentity.h \
     registerdialog.h \
     searchPlace.h \
-    userentity.h
+    userentity.h \
+    placeEntity.h \
+    graph.h \
+    pathDialog.h
 
 SOURCES += \
     clickablelabel.cpp \
@@ -34,7 +37,10 @@ SOURCES += \
     profileentity.cpp \
     registerdialog.cpp \
     searchPlace.cpp \
-    userentity.cpp
+    userentity.cpp \
+    placeEntity.cpp \
+    graph.cpp \
+    pathDialog.cpp
 
 FORMS += \
     editdialog.ui \
@@ -42,7 +48,8 @@ FORMS += \
     mapdialog.ui \
     picturedialog.ui \
     profiledialog.ui \
-    registerdialog.ui
+    registerdialog.ui \
+    pathDialog.ui
 
 RESOURCES += \
     qml.qrc
