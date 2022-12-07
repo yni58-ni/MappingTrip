@@ -43,7 +43,7 @@ private slots:
      * @brief findBFSpaths
      * @param vector<vector<int> >& g, int src, int dst, int v
      */
-    void findBFSpaths(vector<vector<int> >& g, int src, int dst, int v)
+    void findBFSpaths(vector<vector<int> >& g, int src, int dst, int v);
 
     /**
      * invoke when alt1 button clicked, return the BFS algorithm
