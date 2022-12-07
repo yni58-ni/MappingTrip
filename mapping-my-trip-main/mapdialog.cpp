@@ -146,6 +146,9 @@ void MapDialog::on_searchBotton_clicked() // search place on a map
 
 }
 
+/**
+* @brief open the path finding ui
+*/
 void MapDialog::on_pathButton_clicked()  //open path finding ui
 {
     pathDialog pathD;
