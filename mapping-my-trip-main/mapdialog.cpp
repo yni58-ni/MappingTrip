@@ -146,6 +146,13 @@ void MapDialog::on_searchBotton_clicked() // search place on a map
 
 }
 
+void MapDialog::on_pathButton_clicked()  //open path finding ui
+{
+    pathDialog pathD;
+    pathD.setModal(true);
+    pathD.exec();
+}
+
 string MapDialog::p_name(){
     return P_name;
 }
