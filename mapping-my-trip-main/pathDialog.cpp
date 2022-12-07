@@ -11,6 +11,7 @@
 #include <pathDialog.h>
 #include <ui_pathDialog.h>
 #include <graph.h>
+#include <vector>
 
 
 #define V 9   //num of vertices
