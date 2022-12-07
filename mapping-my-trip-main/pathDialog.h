@@ -71,6 +71,6 @@ private slots:
 
         DBHelper helper;
         QList<placeEntity> pList;
-    };
+ 
 
     #endif // PATHDIALOG_H
