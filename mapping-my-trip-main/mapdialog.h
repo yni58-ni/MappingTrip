@@ -17,6 +17,7 @@
 #include "profileentity.h"
 #include "profiledialog.h"
 #include "profileclicked.h"
+#include "pathDialog.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -75,6 +76,7 @@ private slots:
     void mousePressEvent(QMouseEvent* event);
     void on_GetSetLocation_clicked();
     void on_searchBotton_clicked();
+    void on_pathButton_clicked();
     void update_profileImage(QString txt);
 
 private:
