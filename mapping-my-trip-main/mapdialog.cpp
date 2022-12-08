@@ -149,9 +149,10 @@ void MapDialog::on_searchBotton_clicked() // search place on a map
 
 void MapDialog::on_pathButton_clicked()  //open path finding ui
 {
-    pathDialog *pathd = new pathDialog;
-    pathd->setModal(true);
-    pathd->exec();
+    pathDialog *pathd = new pathDialog(this);
+    pathd->show();
+    //pathd->setModal(true);
+    //pathd->exec();
 }
 
 string MapDialog::p_name(){
