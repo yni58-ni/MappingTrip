@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QDebug>
 #include "pathdialog.h"
-#include "ui_pathDialog.h"
+#include "ui_pathdialog.h"
 #include "graph.h"
 #include <QMessageBox>
 #include <limits.h>
