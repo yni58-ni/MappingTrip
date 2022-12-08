@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <limits.h>
 #include <QDebug>
+#include <QtGlobal>
 #include <QString>
 #include <QStringListModel>
 #include <QInputDialog>
@@ -131,9 +132,7 @@ pathDialog::pathDialog(QWidget *parent) :
                     = adjacencyMatrix[nearestVertex]
                                      [vertexIndex];
 
-                if (edgeDistance > 0
-                    && ((shortestDistance + edgeDistance)
-                        < shortestDistances[vertexIndex])) {
+                if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < shortestDistances[vertexIndex])) {
                     parents[vertexIndex] = nearestVertex;
                     shortestDistances[vertexIndex]
                         = shortestDistance + edgeDistance;
@@ -171,9 +170,9 @@ pathDialog::pathDialog(QWidget *parent) :
     {
         int size = path.size();
         for (int i = 0; i < size; i++){
-            auto it = mapElements.find(i+1);
-            cout << it->second << " ";
-            cout << endl;
+            string it = mapElements.at(i+1);
+            QString xy = QString::fromStdString(it);
+            qDebug()<<xy<<" ";
         }
     }
 
@@ -248,10 +247,12 @@ pathDialog::pathDialog(QWidget *parent) :
         int start, end;
         start = ui->comboBox->currentIndex();
         end = ui->comboBox2->currentIndex();
-        auto it1 = mapElements.find(start);
-        auto it2 = mapElements.find(end);
-        cout << "paths from start " << it1->second << " to end " << it2->second
-                 << " are \n";
+        string it1 = mapElements.at(start);
+        string it2 = mapElements.at(end);
+        QString xy1 = QString::fromStdString(it1);
+        QString xy2 = QString::fromStdString(it2);
+        QString status = QString("BFS Paths from the start %1 to end %2 are \n").arg(xy1,xy2);
+        qDebug()<<status;
         findBFSpaths(g, start, end, v);
     }
 
@@ -280,13 +281,15 @@ pathDialog::pathDialog(QWidget *parent) :
         g.addEdge(7,6);
         g.addEdge(8,1);
 
-        int start, end;
-        start = ui->comboBox->currentIndex();
-        end = ui->comboBox2->currentIndex();
-        auto it3 = mapElements.find(start);
-        auto it4 = mapElements.find(end);
-        cout << "Following are all different paths from " << it3->second
-                 << " to " << it4->second << endl;
+        int start = ui->comboBox->currentIndex();
+        int end = ui->comboBox2->currentIndex();
+        string it3 = mapElements.at(start);
+        string it4 = mapElements.at(end);
+        QString xy1 = QString::fromStdString(it3);
+        QString xy2 = QString::fromStdString(it4);
+        QString status = QString("Following are all different DFS paths from %1 to %2 \n").arg(xy1,xy2);
+        qDebug()<<status;
+
         g.printAllPaths(start, end);
 
     }

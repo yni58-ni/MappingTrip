@@ -1,7 +1,8 @@
 #include <iostream>
 #include <list>
 #include <stdlib.h>
-#include <bits/stdc++.h>
+#include <QString>
+#include <QDebug>
 #include "graph.h"
 
 using namespace std;
@@ -46,8 +47,9 @@ void graph::printAllPathsUtil(int u, int d, bool visited[],
     // Check if current vertex is same as destination
     if (u == d) {
         for (int i = 0; i < path_index; i++)
-            cout << path[i] << " ";
-        cout << endl;
+            qDebug()<< path[i]<<" ";
+//            cout << path[i] << " ";
+//        cout << endl;
     }
     else // If current vertex is not destination
     {
