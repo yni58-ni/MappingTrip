@@ -17,6 +17,7 @@
 #include "profileentity.h"
 #include "profiledialog.h"
 #include "profileclicked.h"
+#include "pathdialog.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
