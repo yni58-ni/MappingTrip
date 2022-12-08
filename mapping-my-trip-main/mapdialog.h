@@ -75,6 +75,7 @@ private slots:
     void mousePressEvent(QMouseEvent* event);
     void on_GetSetLocation_clicked();
     void on_searchBotton_clicked();
+    void on_pathButton_clicked();
     void update_profileImage(QString txt);
 
 private:
