@@ -1,21 +1,24 @@
 #include <iostream>
 #include <list>
+#include <stdlib.h>
+#include <bits/stdc++.h>
+#include "graph.h"
+
 using namespace std;
 
-
-Graph::Graph(int V)
+graph::graph(int V)
 {
     this->V = V;
     adj = new list<int>[V];
 }
 
-void Graph::addEdge(int u, int v)
+void graph::addEdge(int u, int v)
 {
     adj[u].push_back(v);
 }
 
 // Prints all paths from 's' to 'd'
-void Graph::printAllPaths(int s, int d)
+void graph::printAllPaths(int s, int d)
 {
     // Mark all the vertices as not visited
     bool* visited = new bool[V];
@@ -33,7 +36,7 @@ void Graph::printAllPaths(int s, int d)
 }
 
 
-void Graph::printAllPathsUtil(int u, int d, bool visited[],
+void graph::printAllPathsUtil(int u, int d, bool visited[],
                               int path[], int& path_index)
 {
     visited[u] = true;
