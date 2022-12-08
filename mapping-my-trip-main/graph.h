@@ -3,10 +3,14 @@
 
 #include <iostream>
 #include <list>
+#include <string>
+#include <regex>
+
+using namespace std;
 
 class graph {
     int V;
-    list<int>* adj;
+    list<int> *adj;
 
     void printAllPathsUtil(int, int, bool[], int[], int&);
 
