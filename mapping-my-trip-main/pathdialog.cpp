@@ -16,6 +16,7 @@
 #include <QStringListModel>
 #include <QInputDialog>
 #include <map>
+#include <utility>
 #include <vector>
 #include <stack>
 
@@ -57,111 +58,87 @@ pathDialog::pathDialog(QWidget *parent) :
         delete ui;
     }
 
-    void pathDialog::printPath(int currentVertex, vector<int> parents)
-    {
-        int NO_PARENT = -1;
-
-        if (currentVertex == NO_PARENT) {
+    void pathDialog::printDJKPath(int dest) {
+        if (path[dest].size() == 0) {
+            cout << "There is no path from the starting node to node " << dest << "." << endl;
             return;
         }
-        printPath(parents[currentVertex], parents);
-        cout << currentVertex << " ";
+
+        cout << "The shortest path from the starting node to node " << dest << " is: ";
+        for (int i = 0; i < path[dest].size(); i++) {
+            cout << path[dest][i] << " ";
+        }
+        cout << endl;
     }
 
-    void pathDialog::printSolution(int startVertex, vector<int> distances,
-                       vector<int> parents)
-    {
-        int nVertices = distances.size();
-        cout << "Vertex\t Distance\tPath";
+    void pathDialog::dijkstra(int start) {
+        priority_queue<pair<int, int>> pq;
 
-        for (int vertexIndex = 0; vertexIndex < nVertices;
-             vertexIndex++) {
-            if (vertexIndex != startVertex) {
-                cout << "\n" << startVertex << " -> ";
-                cout << vertexIndex << " \t\t ";
-                cout << distances[vertexIndex] << "\t\t";
-                printPath(vertexIndex, parents);
-            }
+        for (int i = 1; i <= n; i++) {
+            dist[i] = INF;
+            path[i].clear();
         }
-    }
+        dist[start] = 0;
+        pq.push({0, start});
 
-    void pathDialog::dijkstra(vector<vector<int> > adjacencyMatrix,
-                  int startVertex)
-    {
-        int NO_PARENT = -1;
-        int nVertices = adjacencyMatrix[0].size();
+        while (!pq.empty()) {
+            int cost = -pq.top().first;
+            int here = pq.top().second;
+            pq.pop();
 
-        vector<int> shortestDistances(nVertices);
-
-        vector<bool> added(nVertices);
-
-        for (int vertexIndex = 0; vertexIndex < nVertices;
-             vertexIndex++) {
-            shortestDistances[vertexIndex] = INT_MAX;
-            added[vertexIndex] = false;
-        }
-
-        shortestDistances[startVertex] = 0;
-
-        // Parent array
-        vector<int> parents(nVertices);
-
-        // The starting vertex does not have a parent
-        parents[startVertex] = NO_PARENT;
-
-        // Find shortest path for all vertices
-        for (int i = 1; i < nVertices; i++) {
-
-            int nearestVertex = -1;
-            int shortestDistance = INT_MAX;
-            for (int vertexIndex = 0; vertexIndex < nVertices;
-                 vertexIndex++) {
-                if (!added[vertexIndex]
-                    && shortestDistances[vertexIndex]
-                           < shortestDistance) {
-                    nearestVertex = vertexIndex;
-                    shortestDistance
-                        = shortestDistances[vertexIndex];
-                }
+            if (dist[here] < cost) {
+                continue;
             }
 
-            // Mark the picked vertex as processed
-            added[nearestVertex] = true;
+            for (int i = 0; i < adj[here].size(); i++) {
+                int there = adj[here][i].first;
+                int nextDist = cost + adj[here][i].second;
 
-            // Update list value
-            for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
-                int edgeDistance
-                    = adjacencyMatrix[nearestVertex]
-                                     [vertexIndex];
-
-                if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < shortestDistances[vertexIndex])) {
-                    parents[vertexIndex] = nearestVertex;
-                    shortestDistances[vertexIndex]
-                        = shortestDistance + edgeDistance;
+                if (dist[there] > nextDist) {
+                    dist[there] = nextDist;
+                    path[there] = path[here];
+                    path[there].push_back(there);
+                    pq.push({-nextDist, there});
                 }
             }
         }
-
-        printSolution(startVertex, shortestDistances, parents);
     }
+
 
     //void pathDialog::on_position_clicked(){
     //     QMessageBox::information(this, "Error", "No position found");
     //}
 
     void pathDialog::on_shortPath_clicked(){           //Dijkstra algorithm
-        vector<vector<int> > adjacencyMatrix
-                = { { 0, 0, 0, 5, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 2, 0, 0, 0, 0, 0 },
-                    { 9, 0, 0, 0, 1, 0, 0, 0, 0 },
-                    { 0, 0, 0, 6, 0, 7, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    { 0, 0, 0, 0, 0, 0, 8, 0, 0 },
-                    { 0, 0, 4, 0, 0, 0, 0, 0, 3 } };
-         int startIndex = ui->comboBox->currentIndex();
-         dijkstra(adjacencyMatrix, startIndex);
+            n = 9;
+            m = 20;
+            adj[0].push_back({1,1});
+            adj[0].push_back({5,1});
+            adj[0].push_back({6,1});
+            adj[1].push_back({4,3});
+            adj[1].push_back({5,1});
+            adj[1].push_back({8,5});
+            adj[2].push_back({7,5});
+            adj[2].push_back({3,11});
+            adj[3].push_back({2,11});
+            adj[3].push_back({5,4});
+            adj[3].push_back({8,6});
+            adj[4].push_back({1,3});
+            adj[5].push_back({1,1});
+            adj[5].push_back({6,2});
+            adj[5].push_back({0,1});
+            adj[6].push_back({0,1});
+            adj[6].push_back({7,2});
+            adj[7].push_back({2,5});
+            adj[7].push_back({6,2});
+            adj[8].push_back({1,5});
+
+
+
+            int start = 2;
+            dijkstra(start);
+
+            printDJKPath(5);
     }
 
 
@@ -251,30 +228,6 @@ pathDialog::pathDialog(QWidget *parent) :
     }
 
     void pathDialog::on_alt1_clicked(){         //BFS search
-//        vector<vector<int> > g;
-//        // number of vertices
-//        int v = 9;
-//        g.resize(9);
-//        g[0].push_back(1);
-//        g[0].push_back(5);
-//        g[0].push_back(6);
-//        g[1].push_back(4);
-//        g[1].push_back(5);
-//        g[1].push_back(8);
-//        g[2].push_back(7);
-//        g[2].push_back(3);
-//        g[3].push_back(2);
-//        g[3].push_back(5);
-//        g[3].push_back(8);
-//        g[4].push_back(1);
-//        g[5].push_back(0);
-//        g[5].push_back(1);
-//        g[5].push_back(6);
-//        g[6].push_back(0);
-//        g[6].push_back(7);
-//        g[7].push_back(2);
-//        g[7].push_back(6);
-//        g[8].push_back(1);
 
         vector<int> edges[9];
         edges[0].push_back(1);
@@ -340,9 +293,9 @@ pathDialog::pathDialog(QWidget *parent) :
             }
 
             // Loop through the adjacent nodes of the current node
-            for (int i = 0; i < adj[curr].size(); i++)
+            for (int i = 0; i < adj2[curr].size(); i++)
             {
-                int next = adj[curr][i];
+                int next = adj2[curr][i];
                 if (!visited[next])
                 {
                     // Push the next node onto the stack and mark it as visited
@@ -354,26 +307,26 @@ pathDialog::pathDialog(QWidget *parent) :
     }
 
     void pathDialog::on_alt2_clicked(){         //DFS search
-        adj[0].push_back(1);
-        adj[0].push_back(5);
-        adj[0].push_back(6);
-        adj[1].push_back(4);
-        adj[1].push_back(5);
-        adj[1].push_back(8);
-        adj[2].push_back(7);
-        adj[2].push_back(3);
-        adj[3].push_back(2);
-        adj[3].push_back(5);
-        adj[3].push_back(8);
-        adj[4].push_back(1);
-        adj[5].push_back(1);
-        adj[5].push_back(6);
-        adj[5].push_back(0);
-        adj[6].push_back(0);
-        adj[6].push_back(7);
-        adj[7].push_back(2);
-        adj[7].push_back(6);
-        adj[8].push_back(1);
+        adj2[0].push_back(1);
+        adj2[0].push_back(5);
+        adj2[0].push_back(6);
+        adj2[1].push_back(4);
+        adj2[1].push_back(5);
+        adj2[1].push_back(8);
+        adj2[2].push_back(7);
+        adj2[2].push_back(3);
+        adj2[3].push_back(2);
+        adj2[3].push_back(5);
+        adj2[3].push_back(8);
+        adj2[4].push_back(1);
+        adj2[5].push_back(1);
+        adj2[5].push_back(6);
+        adj2[5].push_back(0);
+        adj2[6].push_back(0);
+        adj2[6].push_back(7);
+        adj2[7].push_back(2);
+        adj2[7].push_back(6);
+        adj2[8].push_back(1);
 
         int start = ui->comboBox->currentIndex();
         int end = ui->comboBox2->currentIndex();

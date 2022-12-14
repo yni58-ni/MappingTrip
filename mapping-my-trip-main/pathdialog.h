@@ -12,6 +12,7 @@
 #include <map>
 #include <vector>
 #include <stack>
+#include <utility>
 #include "dbhelper.h"
 #include "graph.h"
 #include "placeEntity.h"
@@ -19,9 +20,6 @@
 using namespace std;
 
 const int MAX_NODES = 100; // maximum number of nodes in the graph
-
-vector<int> adj[MAX_NODES]; // adjacency list representation of the graph
-bool visited[MAX_NODES]; // array to keep track of visited nodes
 
 namespace Ui {
 class pathDialog;
@@ -44,21 +42,24 @@ private slots:
     /**
      * Dijkstra algorithm to return the optimal route
      * @brief dijkstra
-     * @param adjacencyMatrix, startVertex
+     * @param start
      */
 
-    void dijkstra(vector<vector<int>> adjacencyMatrix,int startVertex);
+    void dijkstra(int start);
 
     /**
      * invoke when short path clicked, return the shortest path using Dijkstra algorithm
      * @brief on_shortPath_clicked
      * @param startID, endID
      */
-    void on_shortPath_clicked();
+    void on_shortPath_clicked();  
 
-    void printPath(int currentVertex, vector<int> parents);
-
-    void printSolution(int startVertex, vector<int> distances,vector<int> parents);
+    /**
+     * print the path from starting node to destination node
+     * @brief printDJKPath
+     * @param dest
+     */
+    void printDJKPath(int dest);
 
     void printPath(vector<int>& parent, int dest);
 
@@ -92,6 +93,18 @@ private slots:
 //            int num_nodes;
 //            vector<vector<int>> adjacency_list;
 //        };
+        const int INF = 1000000000;
+
+        vector<pair<int, int>> adj[100001];
+        int dist[100001];
+        int n, m;
+        vector<int> path[100001];
+
+
+
+        vector<int> adj2[MAX_NODES]; // adjacency list representation of the graph
+        bool visited[MAX_NODES]; // array to keep track of visited nodes
+
 
         Ui::pathDialog *ui;
         /**
