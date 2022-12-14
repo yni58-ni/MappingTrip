@@ -39,8 +39,6 @@ pathDialog::pathDialog(QWidget *parent) :
     label = new QLabel(this);
     ui->scrollArea->setWidget(label);
 
-
-    map<int, string> mapElements;
     mapElements.insert(pair<int,string>(1,"Western University"));
     mapElements.insert(pair<int,string>(2,"Huron University College"));
     mapElements.insert(pair<int,string>(3,"Victoria Park"));
