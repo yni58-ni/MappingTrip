@@ -39,16 +39,6 @@ pathDialog::pathDialog(QWidget *parent) :
     label = new QLabel(this);
     ui->scrollArea->setWidget(label);
 
-    mapElements.insert(pair<int,string>(1,"Western University"));
-    mapElements.insert(pair<int,string>(2,"Huron University College"));
-    mapElements.insert(pair<int,string>(3,"Victoria Park"));
-    mapElements.insert(pair<int,string>(4,"Sifton Bog"));
-    mapElements.insert(pair<int,string>(5,"CF Masonville Place"));
-    mapElements.insert(pair<int,string>(6,"Brescia University College"));
-    mapElements.insert(pair<int,string>(7,"Talbot College"));
-    mapElements.insert(pair<int,string>(8,"St. Joseph's Hospital"));
-    mapElements.insert(pair<int,string>(9,"Museum Strathroy Caradoc"));
-
 };
 
     pathDialog::~pathDialog()
@@ -226,7 +216,16 @@ pathDialog::pathDialog(QWidget *parent) :
     }
 
     void pathDialog::on_alt1_clicked(){         //BFS search
-
+        mapElements.insert(pair<int,string>(1,"Western University"));
+        mapElements.insert(pair<int,string>(2,"Huron University College"));
+        mapElements.insert(pair<int,string>(3,"Victoria Park"));
+        mapElements.insert(pair<int,string>(4,"Sifton Bog"));
+        mapElements.insert(pair<int,string>(5,"CF Masonville Place"));
+        mapElements.insert(pair<int,string>(6,"Brescia University College"));
+        mapElements.insert(pair<int,string>(7,"Talbot College"));
+        mapElements.insert(pair<int,string>(8,"St. Joseph's Hospital"));
+        mapElements.insert(pair<int,string>(9,"Museum Strathroy Caradoc"));
+        
         vector<int> edges[9];
         edges[0].push_back(1);
         edges[0].push_back(5);
@@ -305,6 +304,16 @@ pathDialog::pathDialog(QWidget *parent) :
     }
 
     void pathDialog::on_alt2_clicked(){         //DFS search
+        mapElements.insert(pair<int,string>(1,"Western University"));
+        mapElements.insert(pair<int,string>(2,"Huron University College"));
+        mapElements.insert(pair<int,string>(3,"Victoria Park"));
+        mapElements.insert(pair<int,string>(4,"Sifton Bog"));
+        mapElements.insert(pair<int,string>(5,"CF Masonville Place"));
+        mapElements.insert(pair<int,string>(6,"Brescia University College"));
+        mapElements.insert(pair<int,string>(7,"Talbot College"));
+        mapElements.insert(pair<int,string>(8,"St. Joseph's Hospital"));
+        mapElements.insert(pair<int,string>(9,"Museum Strathroy Caradoc"));
+        
         adj2[0].push_back(1);
         adj2[0].push_back(5);
         adj2[0].push_back(6);
